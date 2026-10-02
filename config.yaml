@@ -1,0 +1,99 @@
+# PhishGuard AI - Central Experiment & Pipeline Configuration
+project:
+  name: "PhishGuard AI"
+  version: "1.0.0"
+  tagline: "Detect before you click."
+  subtitle: "Explainable and Robust Phishing Detection for Email and SMS"
+
+reproducibility:
+  random_seed: 42
+  group_k_fold_splits: 5
+  test_size: 0.20
+
+models:
+  baseline:
+    name: "Model A - Baseline Lexical"
+    type: "tfidf_logistic_regression"
+    ngram_range: [1, 2]
+    max_features: 5000
+    sublinear_tf: true
+    c_regularization: 1.0
+
+  robust_lexical:
+    name: "Model A2 - Robust Lexical (Word + Char)"
+    type: "word_char_tfidf_logistic_regression"
+    word_ngram_range: [1, 2]
+    word_max_features: 4000
+    char_ngram_range: [2, 5]
+    char_max_features: 8000
+    analyzer: "char_wb"
+    c_regularization: 1.0
+
+  semantic:
+    name: "Model B - Semantic Multilingual"
+    embedding_model: "paraphrase-multilingual-MiniLM-L12-v2"
+    device: "cpu"
+    batch_size: 32
+    c_regularization: 1.0
+
+  proposed:
+    name: "Model C - Semantic + Phishing Intent Fingerprint"
+    embedding_model: "paraphrase-multilingual-MiniLM-L12-v2"
+    use_predicted_fingerprint_only: true
+    out_of_fold_folds: 5
+    c_regularization: 1.0
+
+fingerprint:
+  fields:
+    threat:
+      - "None"
+      - "Account suspension"
+      - "Service disconnection"
+      - "Financial loss"
+      - "SIM deactivation"
+      - "Legal action"
+      - "Parcel/Delivery hold"
+      - "Other"
+    urgency:
+      - "Low"
+      - "Medium"
+      - "High"
+    requested_action:
+      - "None"
+      - "Pay"
+      - "Click link"
+      - "Verify identity"
+      - "Share credential"
+      - "Call number"
+      - "Approve transaction"
+      - "Reply/contact"
+    credential_payment:
+      - "None"
+      - "Credential"
+      - "Payment"
+      - "Both"
+
+thresholds:
+  high_risk_threshold: 0.65
+  suspicious_threshold: 0.35
+  hard_otp_override: true
+
+dataset_paths:
+  audit_file: "data/audit/phishguard_dataset_audit.csv"
+  uci_sms_raw: "data/raw/uci_sms/"
+  mishra_soni_raw: "data/raw/mishra_soni/"
+  enron_raw: "data/raw/enron/"
+  email_phishing_raw: "data/raw/email_phishing/"
+  url_raw: "data/raw/url/"
+  interim: "data/interim/"
+  processed_train: "data/processed/train.parquet"
+  processed_test: "data/processed/test.parquet"
+  custom_robustness: "data/custom/robustness_suite.json"
+  overlap_report: "reports/overlap_report.csv"
+  quality_report_csv: "reports/dataset_quality_report.csv"
+  quality_report_html: "reports/dataset_quality_report.html"
+
+artifacts:
+  models_dir: "models/trained/"
+  results_dir: "reports/results/"
+  model_card: "reports/model_card.md"

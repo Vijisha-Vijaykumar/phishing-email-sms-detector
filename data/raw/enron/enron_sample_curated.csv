@@ -1,0 +1,15 @@
+enron_id,sender,subject,body,label
+ENR_001,vince.kaminski@enron.com,Draft of risk management methodology paper,"Shirley,
+Please print the attached document regarding value-at-risk simulation models. I will review it during the flight to Houston tomorrow morning.
+Vince",ham
+ENR_002,sally.beck@enron.com,Operating budget meeting notes - Q4,"Team,
+Attached are the summarized notes from yesterday's operating budget committee. Please send any corrections or department additions before Friday noon.
+Regards,
+Sally",ham
+ENR_003,jeff.dasovich@enron.com,California Energy Commission Hearing Schedule,"Folks,
+The CEC has published the revised calendar for upcoming legislative hearings. Let me know if you would like me to represent the committee during the public comment period.
+Jeff",ham
+ENR_004,richard.shapiro@enron.com,Quarterly Regulatory Affairs Update,"Attached is our quarterly summary of state and federal regulatory filings. Thanks to all who contributed information for this comprehensive edition.
+Rick",ham
+ENR_005,louise.kitchen@enron.com,EnronOnline trading platform system maintenance window,"Please note that the EnronOnline server infrastructure will undergo scheduled routine maintenance this Sunday between 02:00 and 04:00 AM CST. Normal trading operations will not be impacted.
+Louise",ham

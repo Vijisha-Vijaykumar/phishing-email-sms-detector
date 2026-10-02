@@ -1,0 +1,230 @@
+{
+  "model_name": "Phishing Intent Fingerprint Predictor",
+  "note": "Fingerprint ground-truth labels are NEVER used as features in the risk classifier. Only out-of-fold predicted fingerprints are used in Model C.",
+  "fields": {
+    "threat": {
+      "classes": [
+        "Account suspension",
+        "Financial loss",
+        "None",
+        "Parcel/Delivery hold",
+        "SIM deactivation",
+        "Service disconnection",
+        "nan"
+      ],
+      "macro_f1": 0.9006575185820469,
+      "report": {
+        "Account suspension": {
+          "precision": 0.8333333333333334,
+          "recall": 1.0,
+          "f1-score": 0.9090909090909091,
+          "support": 5.0
+        },
+        "Financial loss": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 5.0
+        },
+        "None": {
+          "precision": 0.9931506849315068,
+          "recall": 0.9965635738831615,
+          "f1-score": 0.9948542024013722,
+          "support": 291.0
+        },
+        "Parcel/Delivery hold": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "SIM deactivation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "nan": {
+          "precision": 1.0,
+          "recall": 0.3333333333333333,
+          "f1-score": 0.5,
+          "support": 3.0
+        },
+        "accuracy": 0.9901960784313726,
+        "macro avg": {
+          "precision": 0.9710806697108066,
+          "recall": 0.8883161512027491,
+          "f1-score": 0.9006575185820469,
+          "support": 306.0
+        },
+        "weighted avg": {
+          "precision": 0.9907631241233176,
+          "recall": 0.9901960784313726,
+          "f1-score": 0.9887190439354702,
+          "support": 306.0
+        }
+      }
+    },
+    "urgency": {
+      "classes": [
+        "High",
+        "Low",
+        "Medium"
+      ],
+      "macro_f1": 0.5243413516609393,
+      "report": {
+        "High": {
+          "precision": 0.4375,
+          "recall": 0.875,
+          "f1-score": 0.5833333333333334,
+          "support": 8.0
+        },
+        "Low": {
+          "precision": 0.993103448275862,
+          "recall": 0.9863013698630136,
+          "f1-score": 0.9896907216494846,
+          "support": 292.0
+        },
+        "Medium": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 6.0
+        },
+        "accuracy": 0.9640522875816994,
+        "macro avg": {
+          "precision": 0.476867816091954,
+          "recall": 0.6204337899543378,
+          "f1-score": 0.5243413516609393,
+          "support": 306.0
+        },
+        "weighted avg": {
+          "precision": 0.9591052512959206,
+          "recall": 0.9640522875816994,
+          "f1-score": 0.959661298654628,
+          "support": 306.0
+        }
+      }
+    },
+    "requested_action": {
+      "classes": [
+        "Approve transaction",
+        "Call number",
+        "Click link",
+        "None",
+        "Pay",
+        "Reply/contact",
+        "Share credential",
+        "Verify identity",
+        "nan"
+      ],
+      "macro_f1": 0.5821878579610539,
+      "report": {
+        "Click link": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 7.0
+        },
+        "None": {
+          "precision": 0.9897260273972602,
+          "recall": 0.996551724137931,
+          "f1-score": 0.993127147766323,
+          "support": 290.0
+        },
+        "Pay": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Share credential": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 0.0
+        },
+        "Verify identity": {
+          "precision": 0.8333333333333334,
+          "recall": 0.8333333333333334,
+          "f1-score": 0.8333333333333334,
+          "support": 6.0
+        },
+        "nan": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1-score": 0.6666666666666666,
+          "support": 2.0
+        },
+        "accuracy": 0.9673202614379085,
+        "macro avg": {
+          "precision": 0.6371765601217656,
+          "recall": 0.5549808429118774,
+          "f1-score": 0.5821878579610539,
+          "support": 306.0
+        },
+        "weighted avg": {
+          "precision": 0.9641194377294297,
+          "recall": 0.9673202614379085,
+          "f1-score": 0.965164072501853,
+          "support": 306.0
+        }
+      }
+    },
+    "credential_payment_request": {
+      "classes": [
+        "Both",
+        "Credential",
+        "None",
+        "Payment",
+        "nan"
+      ],
+      "macro_f1": 0.5125645438898451,
+      "report": {
+        "Both": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 5.0
+        },
+        "Credential": {
+          "precision": 0.42857142857142855,
+          "recall": 0.8571428571428571,
+          "f1-score": 0.5714285714285714,
+          "support": 7.0
+        },
+        "None": {
+          "precision": 0.9896907216494846,
+          "recall": 0.993103448275862,
+          "f1-score": 0.9913941480206541,
+          "support": 290.0
+        },
+        "Payment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "nan": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 3.0
+        },
+        "accuracy": 0.9640522875816994,
+        "macro avg": {
+          "precision": 0.4836524300441827,
+          "recall": 0.5700492610837438,
+          "f1-score": 0.5125645438898451,
+          "support": 306.0
+        },
+        "weighted avg": {
+          "precision": 0.9510140826089887,
+          "recall": 0.9640522875816994,
+          "f1-score": 0.955896414790816,
+          "support": 306.0
+        }
+      }
+    }
+  }
+}

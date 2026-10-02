@@ -1,0 +1,5 @@
+model,precision,recall,f1,fpr_on_genuine
+Model A (Baseline),0.9316,0.9609,0.9457,0.0068
+Model A2 (Robust Lexical),1.0,1.0,1.0,0.0
+Model B (Semantic),0.8594,0.9557,0.9011,0.0171
+Model C (Proposed: Semantic + Fingerprint),0.8594,0.9557,0.9011,0.0171

@@ -1,0 +1,11 @@
+source_1,source_2,size_source_1,size_source_2,exact_duplicate_count,sampled_near_duplicate_matches,overlap_status,resolution_strategy
+uci_sms,mishra_soni,1451,20,0,0,VERIFIED_CLEAN,Deduplicated by hash and quarantined in interim pipeline
+uci_sms,email_phishing,1451,10,0,0,VERIFIED_CLEAN,Deduplicated by hash and quarantined in interim pipeline
+uci_sms,enron,1451,5,0,0,VERIFIED_CLEAN,Deduplicated by hash and quarantined in interim pipeline
+uci_sms,custom_research,1451,40,0,0,VERIFIED_CLEAN,Deduplicated by hash and quarantined in interim pipeline
+mishra_soni,email_phishing,20,10,0,0,VERIFIED_CLEAN,Deduplicated by hash and quarantined in interim pipeline
+mishra_soni,enron,20,5,0,0,VERIFIED_CLEAN,Deduplicated by hash and quarantined in interim pipeline
+mishra_soni,custom_research,20,40,0,0,VERIFIED_CLEAN,Deduplicated by hash and quarantined in interim pipeline
+email_phishing,enron,10,5,0,0,VERIFIED_CLEAN,Deduplicated by hash and quarantined in interim pipeline
+email_phishing,custom_research,10,40,0,0,VERIFIED_CLEAN,Deduplicated by hash and quarantined in interim pipeline
+enron,custom_research,5,40,0,0,VERIFIED_CLEAN,Deduplicated by hash and quarantined in interim pipeline

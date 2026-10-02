@@ -1,0 +1,52 @@
+{
+  "model_name": "Model A2 \u2014 Robust Lexical (Word + Char TF-IDF + LR)",
+  "classes": [
+    "Genuine",
+    "High-risk",
+    "Suspicious"
+  ],
+  "overall": {
+    "accuracy": 1.0,
+    "macro_precision": 1.0,
+    "macro_recall": 1.0,
+    "macro_f1": 1.0,
+    "false_positive_rate_on_genuine": 0.0
+  },
+  "per_class": {
+    "Genuine": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 292.0
+    },
+    "High-risk": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 14.0
+    },
+    "accuracy": 1.0,
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 306.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 306.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      292,
+      0
+    ],
+    [
+      0,
+      14
+    ]
+  ]
+}

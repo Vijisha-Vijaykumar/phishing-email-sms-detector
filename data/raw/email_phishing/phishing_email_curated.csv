@@ -1,0 +1,79 @@
+email_id,source_corpus,label,sender,subject,body,threat,urgency,action,cred_pay
+EM_001,nazario,1,security@chase-online-verify.net,Urgent: Unusual sign-in activity on your Chase Online account,"Dear Chase Customer,
+
+We detected a sign-in attempt from an unrecognized IP address (Moscow, Russia). For your security, your account access has been temporarily restricted.
+
+To restore full account functionality, please verify your identity immediately at our secure portal:
+https://chase-identity-resolution.net/auth/login
+
+Failure to verify within 24 hours will result in permanent suspension of online banking.
+
+Sincerely,
+Chase Security Operations",Account suspension,High,Verify identity,Credential
+EM_002,nazario,1,payroll-update@micros0ft-online365.com,Action Required: Update Direct Deposit Information for October Payroll,"All Employees,
+
+Please review your direct deposit banking information before 5:00 PM today to prevent delays in October payroll disbursement. Submit your updated account number and routing code via our Microsoft 365 HR portal:
+http://192.168.1.100/hr-portal/payroll.html
+
+Thank you,
+Internal Payroll Department",Financial loss,High,Share credential,Credential
+EM_003,spamassassin,1,service@paypa1-resolution-center.com,Your PayPal account access has been limited - Case #PP-94821,"Dear Customer,
+
+We have placed a temporary limitation on your PayPal account because we observed suspicious debit card activity. To remove this limitation and withdraw your remaining balance, log into our Resolution Center and confirm your credit card number, expiration, and CVV:
+http://paypa1-resolution-case.biz/resolve.php
+
+PayPal Identity Team",Account suspension,High,Verify identity,Credential
+EM_004,nazario,1,no-reply@dhl-express-tracking-hold.org,DHL Express: Delivery failure notice - Parcel #DHL-782910,"Dear Recipient,
+
+Your package arrived at our sorting facility with incomplete shipping paperwork. An unpaid customs clearance fee of $3.50 is required before dispatch.
+
+Pay clearance fee and download re-delivery receipt here:
+http://dhl-shipping-clearance.info/pay
+
+If unpaid within 48 hours, shipment will be destroyed per maritime customs regulations.",Parcel/Delivery hold,High,Pay,Payment
+EM_005,spamassassin,1,admin@it-helpdesk-system365.com,Password Expiration Alert: Your company mailbox password expires today,"IT Helpdesk Advisory:
+
+Your institutional email password is scheduled to expire in 4 hours. Keep your current password and avoid account lockout by validating your credentials below:
+https://portal-azure-login-verify.top/auth
+
+Do not ignore this notification.
+IT Services Desk",Account suspension,High,Verify identity,Credential
+EM_006,nazario,1,tax-refund@irs-treasury-gov-claim.com,Notice of Electronic Tax Refund - Federal Tax Return 2025,"Internal Revenue Service Notice:
+
+Our calculation indicates you are eligible for an electronic tax refund of $1,420.00. To submit your refund claim, fill out Form 1040-EZ with your SSN and bank details at:
+http://irs-tax-refund-portal.us/claim.aspx
+
+IRS Automated Processing Center",Financial loss,Medium,Share credential,Credential
+EM_007,spamassassin,0,newsletter@python-weekly.org,Python Weekly - Issue 612: AsyncIO best practices and PyTorch 2.0 release,"Welcome to issue 612 of Python Weekly.
+
+This week we cover:
+- Advanced asynchronous patterns with FastAPI and AnyIO
+- Profiling memory bottlenecks in production microservices
+- New features in scikit-learn 1.4
+
+Read the full issue archive at our website: https://pythonweekly.com/archive/612
+To adjust your subscription preferences, click here.",None,Low,None,None
+EM_008,spamassassin,0,notifications@github.com,[GitHub] Pull request #42 merged into main branch (phishguard-core),"Hi user,
+
+Pull request #42 'Implement canonical dataset schema and GroupKFold splitting' was successfully merged into the main branch by maintainer.
+
+You can review the commit diff at https://github.com/phishguard-project/core/commit/8a2f1c4
+
+GitHub Notifications Team",None,Low,None,None
+EM_009,spamassassin,0,billing@aws.amazon.com,Your AWS Monthly Billing Invoice is now available for September 2026,"Greetings from Amazon Web Services,
+
+Your billing statement for the month of September 2026 is now available. Your credit card ending in 4102 has been automatically charged $18.42.
+
+To view your detailed itemized usage breakdown, log in to the official AWS Management Console at https://console.aws.amazon.com/billing
+
+Thank you for choosing AWS.",None,Low,None,None
+EM_010,spamassassin,0,invitations@zoom.us,Zoom meeting invitation - Department Faculty Research Review,"Dear Colleagues,
+
+You are invited to attend the bi-weekly Research Review on Thursday at 2:00 PM Eastern.
+
+Topic: Robust Multi-Task Intent Modeling in Cyber Threat Detection
+Join Zoom Meeting: https://zoom.us/j/9482710492
+Meeting ID: 948 271 0492
+Passcode: 481920
+
+Please dial in 5 minutes prior to the scheduled start time.",None,Low,None,None

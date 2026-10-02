@@ -1,0 +1,13 @@
+template_id,pred_original,expected_original,correct_original,pred_human_paraphrase,expected_human_paraphrase,correct_human_paraphrase,pred_ai_paraphrase,expected_ai_paraphrase,correct_ai_paraphrase,pred_hinglish_variant,expected_hinglish_variant,correct_hinglish_variant,pred_kanglish_variant,expected_kanglish_variant,correct_kanglish_variant,consistency
+T_SMS_KYC_01,High-risk,High-risk,True,High-risk,High-risk,True,High-risk,High-risk,True,High-risk,High-risk,True,High-risk,High-risk,True,Consistent
+T_SMS_ELEC_02,High-risk,High-risk,True,High-risk,High-risk,True,High-risk,High-risk,True,High-risk,High-risk,True,High-risk,High-risk,True,Consistent
+T_SMS_PARCEL_03,High-risk,High-risk,True,High-risk,High-risk,True,High-risk,High-risk,True,High-risk,High-risk,True,High-risk,High-risk,True,Consistent
+T_SMS_SIM_04,High-risk,High-risk,True,High-risk,High-risk,True,High-risk,High-risk,True,High-risk,High-risk,True,High-risk,High-risk,True,Consistent
+T_SMS_TAX_05,High-risk,High-risk,True,High-risk,High-risk,True,High-risk,High-risk,True,High-risk,High-risk,True,High-risk,High-risk,True,Consistent
+T_NEG_OTP_06,N/A,N/A,,N/A,N/A,,N/A,N/A,,N/A,N/A,,N/A,N/A,,Consistent
+T_NEG_BILL_07,N/A,N/A,,N/A,N/A,,N/A,N/A,,N/A,N/A,,N/A,N/A,,Consistent
+T_PAIR_OTP_08,N/A,N/A,,N/A,N/A,,N/A,N/A,,N/A,N/A,,N/A,N/A,,Consistent
+T_PAIR_APP_09,N/A,N/A,,N/A,N/A,,N/A,N/A,,N/A,N/A,,N/A,N/A,,Consistent
+T_EMAIL_SEC_10,High-risk,High-risk,True,High-risk,High-risk,True,High-risk,High-risk,True,High-risk,High-risk,True,High-risk,High-risk,True,Consistent
+T_EMAIL_STMT_11,N/A,N/A,,N/A,N/A,,N/A,N/A,,N/A,N/A,,N/A,N/A,,Consistent
+T_EMAIL_SUSP_12,Suspicious,Suspicious,True,N/A,N/A,,N/A,N/A,,N/A,N/A,,N/A,N/A,,Consistent

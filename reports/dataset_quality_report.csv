@@ -1,0 +1,17 @@
+metric,value
+Total Audited Sources,12
+Verified Usable Sources,6
+Pending / Excluded Sources,6
+Total Processed Clean Records,1526
+Train Set Size,1220
+Test Set Size,306
+Unique GroupKFold Templates,1498
+Exact Duplicate Count Removed,49
+Genuine Count,1472
+High-risk Count,53
+Suspicious Count,1
+SMS Messages,1504
+Email Messages,22
+English Language,1514
+Hinglish Language,6
+Kanglish Language,6

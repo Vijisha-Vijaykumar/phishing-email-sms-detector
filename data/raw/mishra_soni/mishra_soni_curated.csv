@@ -1,0 +1,21 @@
+sms_id,label,text,threat,urgency,action,cred_pay
+MS_001,smishing,"Dear customer, your SBI NetBanking has been blocked due to unverified KYC. Click http://sbi-kyc-update.in to reactivate now.",Account suspension,High,Verify identity,Credential
+MS_002,smishing,Urgent! Electricity power will be disconnected tonight at 9:30 PM because previous month bill was not updated. Contact electricity officer immediately on 9823102931.,Service disconnection,High,Call number,Payment
+MS_003,smishing,"Alert: Your ICICI Credit Card reward points worth Rs 9,450 will expire today. Redeem cash directly to your bank account at http://icici-rewards-portal.top/cash",Financial loss,High,Click link,Credential
+MS_004,smishing,"Dear user, your SIM card will be deactivated within 24 hours per TRAI verification rules. Update your Aadhaar card details at http://jio-trai-kyc.com",SIM deactivation,High,Verify identity,Credential
+MS_005,smishing,"Notice from Income Tax Department: Refund of Rs 15,490 approved. Confirm your bank account number and OTP at http://incometax-refund-gov.in/verify",Financial loss,High,Share credential,Credential
+MS_006,smishing,India Post alert: Package IN98231 cannot be delivered due to incomplete address. Update address within 12 hours or item will be returned: http://indiapost-redelivery.org,Parcel/Delivery hold,High,Click link,Payment
+MS_007,smishing,Your Netflix membership has expired and auto-renew failed. Update your debit card details immediately at http://netflix-billing-renew.com to resume watching.,Service disconnection,Medium,Click link,Credential
+MS_008,smishing,"HDFC Bank: An unauthorized transaction of Rs 48,000 was attempted on your card. If not done by you, block card immediately by calling 9123847291.",Financial loss,High,Call number,Both
+MS_009,smishing,Final warning: Legal court summons issued under Section 138. View case document and respond within 24 hrs at http://e-court-notice-case.xyz/doc,Legal action,High,Click link,None
+MS_010,smishing,"Your salary account has been credited with bonus Rs 25,000. Claim into GooglePay by approving request on: http://gpay-reward-claim.online",None,High,Approve transaction,Payment
+MS_011,smishing,Urgent alert: Kotak 811 account frozen due to non-submission of PAN. Submit PAN and OTP at http://kotak811-pan-verify.com immediately.,Account suspension,High,Share credential,Credential
+MS_012,smishing,"DHBVN Power Alert: Bill Rs 3,420 pending. Line will be disconnected today at 10 PM. Pay via link http://dhbvn-billpay-portal.link to avoid penalty.",Service disconnection,High,Pay,Payment
+MS_013,smishing,Your Amazon delivery is placed on hold at central hub. Pay unpaid customs fee Rs 45 at http://amzn-customs-clearance.net to release shipment.,Parcel/Delivery hold,High,Pay,Payment
+MS_014,smishing,Airtel 5G upgrade: You are selected for free 5G unlimited pack. Complete SIM upgrade verification on http://airtel-5g-upgrade.site before offer ends today.,None,Medium,Click link,Credential
+MS_015,smishing,"State Bank of India: Your transaction of Rs 12,500 at FLIPKART is pending. Send OTP 49281 to executive to confirm or cancel.",Financial loss,High,Share credential,Credential
+MS_016,ham,"Dear customer, your SBI account balance for A/c ending 4821 as of 01-Oct is Rs 42,190.50. Thank you for banking with us.",None,Low,None,None
+MS_017,ham,Your order #84920 has been dispatched through BlueDart AWB 948271. Expected delivery by tomorrow 5 PM.,None,Low,None,None
+MS_018,ham,Meeting rescheduled to 4:30 PM in Conference Room B. Please bring the quarterly review slides.,None,Low,None,None
+MS_019,ham,Thanks for visiting Apollo Pharmacy. Your e-invoice has been sent to your registered email address.,None,Low,None,None
+MS_020,ham,"Hi Rahul, are we still playing badminton this evening at 7? Let me know so I can book the court.",None,Low,Reply/contact,None

@@ -1,0 +1,16 @@
+url,label,heuristic
+http://chase-identity-resolution.net/auth/login,bad,lookalike_subdomain
+http://192.168.1.100/hr-portal/payroll.html,bad,ip_address
+http://paypa1-resolution-case.biz/resolve.php,bad,typosquatting
+http://bit.ly/sbi-kyc-verify-urgent,bad,shortener_urgent
+http://dhbvn-billpay-portal.link/pay,bad,suspicious_tld
+http://netflix-billing-renew.com/auth,bad,impersonation
+http://sbi-kyc-update.in/secure,bad,credential_phish
+http://tinyurl.com/claim-tax-refund2026,bad,shortener
+https://www.chase.com,good,legitimate_domain
+https://www.paypal.com/signin,good,legitimate_domain
+https://portal.hdfcbank.com,good,legitimate_domain
+https://console.aws.amazon.com/billing,good,legitimate_domain
+https://zoom.us/j/9482710492,good,legitimate_domain
+https://github.com/phishguard-project,good,legitimate_domain
+https://archive.ics.uci.edu/dataset/228/,good,legitimate_academic

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PhishGuard AI — Dataset Quality & Provenance Audit</title>
+  <style>
+    body { font-family: 'Segoe UI', system-ui, sans-serif; margin: 40px; background: #0f172a; color: #f8fafc; line-height: 1.6; }
+    h1, h2, h3 { color: #38bdf8; margin-top: 24px; }
+    .card { background: #1e293b; border-radius: 8px; padding: 20px; margin-bottom: 24px; border: 1px solid #334155; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #334155; }
+    th { background: #0f172a; color: #94a3b8; font-weight: 600; font-size: 0.9em; }
+    .badge { padding: 4px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; text-transform: uppercase; }
+    .badge-verified { background: #065f46; color: #34d399; }
+    .badge-pending { background: #854d0e; color: #facc15; }
+    .badge-excluded { background: #991b1b; color: #f87171; }
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 16px; }
+    .stat-box { background: #0f172a; padding: 16px; border-radius: 6px; border-left: 4px solid #38bdf8; }
+    .stat-val { font-size: 1.8em; font-weight: 700; color: #f8fafc; }
+    .stat-lbl { font-size: 0.85em; color: #94a3b8; }
+  </style>
+</head>
+<body>
+  <h1>PhishGuard AI — Dataset Quality & Provenance Audit</h1>
+  <p><strong>Generated:</strong> 2026-10-02 12:15:25 | <strong>Status:</strong> AUDITED & VERIFIED</p>
+  
+  <div class="card">
+    <h2>1. Data Health Overview</h2>
+    <div class="stat-grid">
+      <div class="stat-box"><div class="stat-val">1526</div><div class="stat-lbl">Processed Records</div></div>
+      <div class="stat-box"><div class="stat-val">1498</div><div class="stat-lbl">Unique Templates</div></div>
+      <div class="stat-box"><div class="stat-val">1220</div><div class="stat-lbl">Train Set (GroupKFold)</div></div>
+      <div class="stat-box"><div class="stat-val">306</div><div class="stat-lbl">Test Set (Held-Out)</div></div>
+      <div class="stat-box"><div class="stat-val">0</div><div class="stat-lbl">Template Leakage</div></div>
+      <div class="stat-box"><div class="stat-val">49</div><div class="stat-lbl">Duplicates Removed</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>2. Class, Channel & Language Breakdown</h2>
+    <table>
+      <thead><tr><th>Dimension</th><th>Breakdown</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Risk Labels</strong></td><td>Genuine: 1472 | High-risk: 53 | Suspicious: 1</td></tr>
+        <tr><td><strong>Channels</strong></td><td>SMS: 1504 | Email: 22</td></tr>
+        <tr><td><strong>Languages</strong></td><td>English: 1514 | Hinglish: 6 | Kanglish: 6</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>3. Source Provenance & License Verification</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Dataset</th><th>Channel</th><th>License</th><th>Status</th><th>Usable for Training</th><th>Provenance</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td><strong>UCI SMS Spam Collection</strong></td>
+          <td>SMS</td>
+          <td>CC BY 4.0</td>
+          <td><span class="badge badge-verified">VERIFIED</span></td>
+          <td>yes</td>
+          <td>UCI ML Repository (Almeida et al., 2011)</td>
+        </tr>
+
+        <tr>
+          <td><strong>Mishra & Soni SMS Phishing</strong></td>
+          <td>SMS</td>
+          <td>CC BY 4.0</td>
+          <td><span class="badge badge-verified">VERIFIED</span></td>
+          <td>yes</td>
+          <td>Mendeley Data (Mishra & Soni, 2022)</td>
+        </tr>
+
+        <tr>
+          <td><strong>Smishtank Phishing SMS</strong></td>
+          <td>SMS</td>
+          <td>Pending</td>
+          <td><span class="badge badge-pending">PENDING_VERIFICATION</span></td>
+          <td>no</td>
+          <td>Academic smishing tracker preprint</td>
+        </tr>
+
+        <tr>
+          <td><strong>Indian Scam SMS Synthetic Audited</strong></td>
+          <td>SMS</td>
+          <td>Apache 2.0</td>
+          <td><span class="badge badge-verified">VERIFIED</span></td>
+          <td>yes</td>
+          <td>Hugging Face (Ridham115)</td>
+        </tr>
+
+        <tr>
+          <td><strong>Indian Multilingual Scam/Ham 14 Languages</strong></td>
+          <td>SMS / Text</td>
+          <td>MIT / Creative Commons</td>
+          <td><span class="badge badge-pending">PENDING_VERIFICATION</span></td>
+          <td>no</td>
+          <td>Hugging Face (anmolshrivastav)</td>
+        </tr>
+
+        <tr>
+          <td><strong>Indian Cyber Scam PhoneCall Hinglish Dataset</strong></td>
+          <td>Multi-channel</td>
+          <td>CC BY-NC 4.0</td>
+          <td><span class="badge badge-pending">PENDING_VERIFICATION</span></td>
+          <td>no</td>
+          <td>Hugging Face</td>
+        </tr>
+
+        <tr>
+          <td><strong>Multilingual Phishing Detection (Gupta7050)</strong></td>
+          <td>SMS / Email</td>
+          <td>Unspecified</td>
+          <td><span class="badge badge-pending">PENDING_VERIFICATION</span></td>
+          <td>no</td>
+          <td>GitHub repository</td>
+        </tr>
+
+        <tr>
+          <td><strong>ScamShield Dataset</strong></td>
+          <td>SMS</td>
+          <td>Research only</td>
+          <td><span class="badge badge-pending">PENDING_VERIFICATION</span></td>
+          <td>no</td>
+          <td>Related-work comparative dataset</td>
+        </tr>
+
+        <tr>
+          <td><strong>Phishing Email Dataset (Baselight / Kaggle)</strong></td>
+          <td>Email</td>
+          <td>ODbL / Research</td>
+          <td><span class="badge badge-verified">VERIFIED</span></td>
+          <td>yes</td>
+          <td>Aggregated from Nazario, SpamAssassin, Enron</td>
+        </tr>
+
+        <tr>
+          <td><strong>Enron Email Corpus (Curated Subsample)</strong></td>
+          <td>Email</td>
+          <td>Public Domain</td>
+          <td><span class="badge badge-verified">VERIFIED</span></td>
+          <td>yes</td>
+          <td>CMU / FERC Public Records</td>
+        </tr>
+
+        <tr>
+          <td><strong>Mendeley Phishing URL Dataset</strong></td>
+          <td>URL</td>
+          <td>CC BY 4.0</td>
+          <td><span class="badge badge-verified">VERIFIED</span></td>
+          <td>yes</td>
+          <td>Mendeley Data</td>
+        </tr>
+
+        <tr>
+          <td><strong>OpenPhish Academic Feed</strong></td>
+          <td>URL</td>
+          <td>Academic license</td>
+          <td><span class="badge badge-pending">OPTIONAL</span></td>
+          <td>no</td>
+          <td>OpenPhish Threat Feed</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
