@@ -4,12 +4,11 @@ Returns labelled samples from the curated research datasets so the UI
 can offer one-click 'load from dataset' examples.
 """
 
-import os
 import random
 import csv
 from pathlib import Path
 from fastapi import APIRouter, Query
-from typing import List, Optional
+from typing import Optional
 
 router = APIRouter()
 
@@ -102,23 +101,28 @@ def get_samples(
     Return random labelled samples from the curated research datasets.
     Used by the frontend to populate the 'Load from Dataset' panel.
     """
+    channel_str = channel if isinstance(channel, str) else None
+    label_str = label if isinstance(label, str) else None
+    num_samples = n if isinstance(n, int) else 10
+    seed_val = seed if isinstance(seed, int) else None
+
     pool = _all_samples()
 
-    if channel:
-        pool = [s for s in pool if s["channel"].lower() == channel.lower()]
-    if label:
-        pool = [s for s in pool if s["label"].lower() == label.lower()]
+    if channel_str:
+        pool = [s for s in pool if s["channel"].lower() == channel_str.lower()]
+    if label_str:
+        pool = [s for s in pool if s["label"].lower() == label_str.lower()]
 
     if not pool:
-        return {"samples": [], "total_available": 0}
+        return {"samples": [], "total_available": 0, "filters": {"channel": channel_str, "label": label_str}}
 
-    rng = random.Random(seed)
-    chosen = rng.sample(pool, min(n, len(pool)))
+    rng = random.Random(seed_val)
+    chosen = rng.sample(pool, min(num_samples, len(pool)))
 
     return {
         "samples": chosen,
         "total_available": len(pool),
-        "filters": {"channel": channel, "label": label},
+        "filters": {"channel": channel_str, "label": label_str},
     }
 
 

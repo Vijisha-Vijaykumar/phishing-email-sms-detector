@@ -4,7 +4,7 @@ import {
   Send, RefreshCw, AlertTriangle, Fingerprint, 
   HelpCircle, CheckCircle2, UserCheck, Link2, Info, Zap, Shield,
   Paperclip, FileWarning, File, FileText, Archive, UploadCloud,
-  XCircle, BarChart2, Globe, ExternalLink, Radio, Rss, Search
+  XCircle, BarChart2, Globe, Rss, Search
 } from 'lucide-react';
 
 // ── Web Intelligence Panel Component ────────────────────────────────────────
@@ -12,12 +12,12 @@ function WebIntelPanel({ webIntel }) {
   if (!webIntel) return null;
 
   const isScam = webIntel.is_known_scam;
-  const isVerified = webIntel.is_verified_entity && !isScam;
+  const hasFindings = webIntel.findings?.some(f => f.verdict !== 'VERIFIED_OFFICIAL');
+  const isVerified = webIntel.is_verified_entity && !isScam && !hasFindings;
   const hasSocialSignals = webIntel.social_media_signals?.length > 0;
   const hasUrlhausFindings = webIntel.urlhaus_findings?.length > 0;
   const hasImpersonation = webIntel.impersonation_alerts?.length > 0;
   const hasScamBulletins = webIntel.scam_bulletins?.length > 0;
-  const hasFindings = webIntel.findings?.some(f => f.verdict !== 'VERIFIED_OFFICIAL');
 
   const panelBorder = isScam ? 'rgba(255,23,68,0.45)' : isVerified ? 'rgba(0,255,157,0.35)' : 'var(--border-dim)';
   const panelBg = isScam ? 'rgba(255,23,68,0.04)' : isVerified ? 'rgba(0,255,157,0.04)' : 'rgba(7,9,24,0.85)';
@@ -422,7 +422,14 @@ export default function DetectorTab() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url: target }),
         });
-      } catch (networkErr) {
+        if (!response.ok && response.status === 404) {
+          response = await fetch('/analyze-url', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: target }),
+          });
+        }
+      } catch {
         response = await fetch('/analyze-url', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

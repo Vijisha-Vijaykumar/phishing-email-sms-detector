@@ -359,3 +359,46 @@ class TestURLAnalyzer:
         r2 = analyze_url_extended("http://example.com")
         assert r1["https"] is True
         assert r2["https"] is False
+
+
+class TestAdditionalRoutes:
+    """Tests for samples, research metrics, and web intelligence endpoints."""
+
+    def test_samples_endpoint(self):
+        resp = client.get("/samples?n=5")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert "samples" in data
+        assert len(data["samples"]) <= 5
+        assert data["total_available"] > 0
+
+    def test_samples_filtered_endpoint(self):
+        resp = client.get("/samples?n=3&channel=SMS&label=phishing")
+        assert resp.status_code == 200
+        data = resp.json()
+        for sample in data["samples"]:
+            assert sample["channel"] == "SMS"
+            assert sample["label"] == "phishing"
+
+    def test_samples_stats_endpoint(self):
+        resp = client.get("/samples/stats")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert "total" in data
+        assert "breakdown" in data
+        assert data["total"] > 0
+
+    def test_research_metrics_endpoint(self):
+        resp = client.get("/research/metrics")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert "results" in data or "message" in data
+
+    def test_web_intel_endpoint(self):
+        resp = client.post("/web-intel", json={"url": "https://hdfcbank.com", "sender": "HDFCBK"})
+        assert resp.status_code == 200
+        data = resp.json()
+        assert "reputation_status" in data
+        assert "reputation_score" in data
+        assert "sources_queried" in data
+

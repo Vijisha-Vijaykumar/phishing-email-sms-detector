@@ -19,7 +19,8 @@ export default defineConfig({
       '/samples': 'http://127.0.0.1:8000',
       '/api': 'http://127.0.0.1:8000',
       '/analyze-attachment': 'http://127.0.0.1:8000',
-      '/analyze-url': 'http://127.0.0.1:8000'
+      '/analyze-url': 'http://127.0.0.1:8000',
+      '/web-intel': 'http://127.0.0.1:8000'
     }
   }
 })
