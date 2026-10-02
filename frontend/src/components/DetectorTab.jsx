@@ -1,3 +1,4 @@
+import { apiUrl } from "../api";
 import React, { useState, useRef, useCallback } from 'react';
 import { 
   ShieldAlert, ShieldCheck, AlertCircle, Mail, MessageSquare, 
@@ -319,7 +320,7 @@ export default function DetectorTab() {
     setLoading(true);
 
     try {
-      const response = await fetch('/predict', {
+      const response = await fetch(apiUrl('/predict'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -387,7 +388,7 @@ export default function DetectorTab() {
     try {
       const formData = new FormData();
       formData.append('file', attachedFile);
-      const response = await fetch('/api/attachment/analyze-attachment', {
+      const response = await fetch(apiUrl('/api/attachment/analyze-attachment'), {
         method: 'POST',
         body: formData,
       });
@@ -417,20 +418,20 @@ export default function DetectorTab() {
     try {
       let response;
       try {
-        response = await fetch('/api/attachment/analyze-url', {
+        response = await fetch(apiUrl('/api/attachment/analyze-url'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url: target }),
         });
         if (!response.ok && response.status === 404) {
-          response = await fetch('/analyze-url', {
+          response = await fetch(apiUrl('/analyze-url'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ url: target }),
           });
         }
       } catch {
-        response = await fetch('/analyze-url', {
+        response = await fetch(apiUrl('/analyze-url'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url: target }),

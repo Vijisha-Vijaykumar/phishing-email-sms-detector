@@ -1,3 +1,4 @@
+import { apiUrl } from "../api";
 import React, { useState, useEffect, useCallback } from 'react';
 import { CheckCircle2, ShieldCheck, RefreshCw, Cpu, GitCompare, FileCode, Clock } from 'lucide-react';
 
@@ -10,7 +11,7 @@ export default function ResearchTab() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/research/metrics');
+      const res = await fetch(apiUrl('/research/metrics'));
       if (!res.ok) {
         throw new Error(`HTTP error ${res.status}`);
       }
@@ -28,7 +29,7 @@ export default function ResearchTab() {
     let ignore = false;
     async function initialFetch() {
       try {
-        const res = await fetch('/research/metrics');
+        const res = await fetch(apiUrl('/research/metrics'));
         if (!res.ok) throw new Error(`HTTP error ${res.status}`);
         const data = await res.json();
         if (!ignore) {
