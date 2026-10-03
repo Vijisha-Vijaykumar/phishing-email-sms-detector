@@ -17,6 +17,7 @@ from pydantic import BaseModel, Field
 from app.services.attachment_analyzer import analyze_attachment_file, QUARANTINE_DIR
 from app.services.url_analyzer import analyze_url_extended
 from app.services.reputation_analyzer import analyze_web_reputation
+from app.services.virustotal_service import check_file_hash, check_url
 
 router = APIRouter(prefix="", tags=["Security Analysis"])
 
@@ -79,6 +80,24 @@ async def analyze_attachment(file: UploadFile = File(...)) -> Dict[str, Any]:
         result["extracted_urls"] = findings.get("extracted_urls", [])
         result["archive_contents"] = findings.get("archive_contents", [])
 
+        # VirusTotal Global Threat Intelligence check on file SHA-256
+        file_sha256 = result.get("sha256", "")
+        vt_intel = check_file_hash(file_sha256) if file_sha256 else {}
+        result["virustotal"] = vt_intel
+
+        if vt_intel.get("status") == "scanned":
+            vt_mal = vt_intel.get("malicious_count", 0)
+            if vt_mal > 0:
+                threat_tag = f"VirusTotal Threat Feed: {vt_mal} antivirus engines flagged this file hash as malicious"
+                if threat_tag not in result["threat_indicators"]:
+                    result["threat_indicators"].insert(0, threat_tag)
+                if vt_mal >= 2:
+                    result["risk_level"] = "High-risk"
+                    result["verdict"] = "MALICIOUS"
+                elif result["risk_level"] == "Genuine":
+                    result["risk_level"] = "Suspicious"
+                    result["verdict"] = "SUSPICIOUS"
+
         return result
 
     finally:
@@ -93,7 +112,7 @@ async def analyze_attachment(file: UploadFile = File(...)) -> Dict[str, Any]:
 @router.post("/analyze-url")
 def analyze_standalone_url(req: URLAnalysisRequest) -> Dict[str, Any]:
     """
-    Performs multi-layered heuristic and structure analysis on a standalone URL.
+    Performs multi-layered heuristic, structure, OSINT, and VirusTotal analysis on a standalone URL.
     """
     t_start = time.perf_counter()
     url = req.url.strip()
@@ -115,10 +134,29 @@ def analyze_standalone_url(req: URLAnalysisRequest) -> Dict[str, Any]:
             if sc not in flags:
                 flags.append(sc)
 
+    # VirusTotal v3 Global Threat Intelligence scan
+    vt_intel = check_url(url)
+    if vt_intel.get("status") == "scanned":
+        vt_mal = vt_intel.get("malicious_count", 0)
+        vt_susp = vt_intel.get("suspicious_count", 0)
+        if vt_mal > 0:
+            is_suspicious = True
+            vt_tag = f"VirusTotal Blacklist: {vt_mal} security vendors flagged this URL as malicious"
+            if vt_tag not in flags:
+                flags.append(vt_tag)
+        elif vt_susp > 1:
+            is_suspicious = True
+            vt_tag = f"VirusTotal Anomaly: {vt_susp} vendors flagged this URL as suspicious"
+            if vt_tag not in flags:
+                flags.append(vt_tag)
+
+    vt_high_risk = vt_intel.get("status") == "scanned" and vt_intel.get("malicious_count", 0) >= 2
+
     if (
         len(flags) >= 2 
-        or any("IP-based" in f or "lookalike" in f.lower() or "typosquatting" in f.lower() or "punycode" in f.lower() for f in flags)
+        or any("IP-based" in f or "lookalike" in f.lower() or "typosquatting" in f.lower() or "punycode" in f.lower() or "VirusTotal Blacklist" in f for f in flags)
         or web_intel.get("is_known_scam")
+        or vt_high_risk
     ):
         risk = "High-risk"
         explanation = f"URL exhibits high-risk indicators ({'; '.join(flags[:3])}). Target domain is likely deceptive."
@@ -157,4 +195,5 @@ def analyze_standalone_url(req: URLAnalysisRequest) -> Dict[str, Any]:
         "latency_ms": latency_ms,
         "disclaimer": "This is a heuristic URL assessment, not a guarantee of site safety.",
         "web_intel": web_intel,
+        "virustotal": vt_intel,
     }

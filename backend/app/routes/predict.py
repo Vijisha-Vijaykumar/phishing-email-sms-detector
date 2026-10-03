@@ -94,6 +94,9 @@ class PredictRequest(BaseModel):
         return v
 
 
+from app.services.virustotal_service import check_url
+
+
 class PredictResponse(BaseModel):
     risk:             str
     risk_label:       Optional[str] = None
@@ -113,6 +116,7 @@ class PredictResponse(BaseModel):
     latency_ms:       Optional[float]
     disclaimer:       str
     web_intel:        Optional[dict] = None
+    virustotal:       Optional[dict] = None
 
 
 # ── Main endpoint ───────────────────────────────────────────────────────────────
@@ -168,6 +172,17 @@ def predict_endpoint(req: PredictRequest):
         subject=subject,
         sender=sender,
     )
+
+    # ── Step 5c: VirusTotal Global Threat Intelligence ────────────────────────
+    vt_intel = None
+    if extracted_urls:
+        first_url = extracted_urls[0]
+        if isinstance(first_url, dict):
+            first_url = first_url.get("url", "")
+        if first_url:
+            vt_intel = check_url(str(first_url))
+            if vt_intel.get("status") == "scanned" and vt_intel.get("malicious_count", 0) > 0:
+                evidence.append(f"VirusTotal Blacklist: {vt_intel['malicious_count']} security vendors flagged destination URL as malicious")
 
     # ── Step 6: Rule feature vector ────────────────────────────────────────────
     rule_vec = build_rule_feature_vector(
@@ -263,6 +278,7 @@ def predict_endpoint(req: PredictRequest):
         latency_ms=latency_ms,
         disclaimer="This is a model-based risk assessment, not proof of fraud.",
         web_intel=web_intel,
+        virustotal=vt_intel,
     )
 
 

@@ -402,3 +402,30 @@ class TestAdditionalRoutes:
         assert "reputation_score" in data
         assert "sources_queried" in data
 
+
+class TestVirusTotalEndpoints:
+    """Tests for VirusTotal threat intelligence routes and service."""
+
+    def test_virustotal_status_endpoint(self):
+        resp = client.get("/virustotal/status")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data.get("configured") is True
+        assert "engine" in data
+
+    def test_virustotal_check_url_empty_validation(self):
+        resp = client.post("/virustotal/check-url", json={"url": "   "})
+        assert resp.status_code == 400
+
+    def test_virustotal_check_hash_invalid_length(self):
+        resp = client.get("/virustotal/check-hash/invalidhash")
+        assert resp.status_code == 400
+
+    def test_virustotal_check_url_success(self):
+        resp = client.post("/virustotal/check-url", json={"url": "https://google.com"})
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data.get("configured") is True
+        assert "status" in data
+
+

@@ -157,6 +157,94 @@ function WebIntelPanel({ webIntel }) {
   );
 }
 
+// ── VirusTotal Intelligence Panel Component ─────────────────────────────────
+function VirusTotalPanel({ vtData, type = 'url' }) {
+  if (!vtData || vtData.status === 'empty_url' || vtData.status === 'not_configured') return null;
+
+  const isScanned = vtData.status === 'scanned';
+  const isMalicious = vtData.verdict === 'MALICIOUS' || (vtData.malicious_count || 0) >= 2;
+  const isSuspicious = vtData.verdict === 'SUSPICIOUS' || (vtData.malicious_count || 0) === 1 || (vtData.suspicious_count || 0) > 0;
+  const isClean = isScanned && !isMalicious && !isSuspicious;
+
+  const border = isMalicious ? 'rgba(255,23,68,0.45)' : isSuspicious ? 'rgba(255,183,3,0.40)' : isClean ? 'rgba(0,255,157,0.35)' : 'var(--border-dim)';
+  const bg = isMalicious ? 'rgba(255,23,68,0.05)' : isSuspicious ? 'rgba(255,183,3,0.04)' : isClean ? 'rgba(0,255,157,0.04)' : 'rgba(7,9,24,0.85)';
+  const verdictColor = isMalicious ? '#ff616f' : isSuspicious ? '#ffd166' : isClean ? '#5affbf' : 'var(--text-muted)';
+
+  return (
+    <div style={{ marginBottom: '1.25rem' }}>
+      <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--cyber-cyan)', marginBottom: '0.55rem', display: 'flex', alignItems: 'center', gap: '0.45rem', fontFamily: 'var(--font-display)', letterSpacing: '0.06em' }}>
+        <Shield size={15} />
+        <span>VIRUSTOTAL // GLOBAL THREAT SENSOR (v3 API)</span>
+        {isMalicious && <span className="badge-tag badge-red" style={{ fontSize: '0.62rem', padding: '0.1rem 0.35rem' }}>MALICIOUS CONFIRMED</span>}
+        {isSuspicious && <span className="badge-tag badge-yellow" style={{ fontSize: '0.62rem', padding: '0.1rem 0.35rem' }}>ANOMALY FLAGGED</span>}
+        {isClean && <span className="badge-tag badge-green" style={{ fontSize: '0.62rem', padding: '0.1rem 0.35rem' }}>0 DETECTIONS</span>}
+      </div>
+
+      <div style={{ background: bg, border: `1px solid ${border}`, borderRadius: 'var(--r-md)', padding: '0.85rem 1rem' }}>
+        {isScanned ? (
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.65rem' }}>
+              <div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>SECURITY ENGINE DETECTION RATIO</div>
+                <div style={{ fontSize: '1.05rem', fontWeight: 800, color: verdictColor, fontFamily: 'var(--font-mono)' }}>
+                  {vtData.malicious_count} / {vtData.total_engines || 0} <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>vendors flagged</span>
+                </div>
+              </div>
+              <div style={{ textAlign: 'right' }}>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>COMMUNITY REPUTATION</div>
+                <div style={{ fontSize: '0.9rem', fontWeight: 700, color: (vtData.reputation || 0) < 0 ? '#ff616f' : '#5affbf', fontFamily: 'var(--font-mono)' }}>
+                  {vtData.reputation ?? 0}
+                </div>
+              </div>
+            </div>
+
+            {type === 'file' && vtData.threat_label && (
+              <div style={{ fontSize: '0.78rem', marginBottom: '0.5rem', color: '#ff616f', fontFamily: 'var(--font-mono)' }}>
+                <strong>SUGGESTED THREAT CLASSIFICATION:</strong> {vtData.threat_label}
+              </div>
+            )}
+
+            {vtData.flagged_engines?.length > 0 && (
+              <div style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}>
+                <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.3rem' }}>FLAGGED BY ANTIVIRUS VENDORS:</div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+                  {vtData.flagged_engines.map((fe, idx) => (
+                    <span key={idx} className="badge-tag badge-red" style={{ fontSize: '0.65rem' }}>
+                      {fe.engine}: {fe.result || fe.category}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {vtData.permalink && (
+              <div style={{ marginTop: '0.6rem', textAlign: 'right' }}>
+                <a
+                  href={vtData.permalink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ fontSize: '0.72rem', color: 'var(--cyber-cyan)', textDecoration: 'none', fontFamily: 'var(--font-mono)', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}
+                >
+                  <span>VIEW LIVE DOSSIER ON VIRUSTOTAL</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            )}
+          </div>
+        ) : vtData.status === 'not_found' ? (
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
+            ✓ Sample not previously reported to VirusTotal database. Evaluated with local heuristic sandbox.
+          </div>
+        ) : (
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
+            VirusTotal sensor status: {vtData.message || vtData.status}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 const MAX_FILE_SIZE_MB = 25;
 
 function formatBytes(bytes) {
@@ -488,10 +576,14 @@ export default function DetectorTab() {
               className={`channel-btn ${channel === 'SMS' ? 'active' : ''}`}
               onClick={() => { setChannel('SMS'); setSubject(''); setError(''); }}
             >
-              <span className="channel-led" />
-              <MessageSquare size={16} />
-              <span>SMS</span>
-              <span className="channel-badge">PORT_01</span>
+              <div className="channel-btn-top">
+                <span className="channel-led" />
+                <span className="channel-badge">PORT_01</span>
+              </div>
+              <div className="channel-btn-content">
+                <MessageSquare size={15} />
+                <span className="channel-label">SMS</span>
+              </div>
             </button>
 
             <button
@@ -499,10 +591,14 @@ export default function DetectorTab() {
               className={`channel-btn ${channel === 'Email' ? 'active' : ''}`}
               onClick={() => { setChannel('Email'); setError(''); }}
             >
-              <span className="channel-led" />
-              <Mail size={16} />
-              <span>EMAIL</span>
-              <span className="channel-badge">PORT_02</span>
+              <div className="channel-btn-top">
+                <span className="channel-led" />
+                <span className="channel-badge">PORT_02</span>
+              </div>
+              <div className="channel-btn-content">
+                <Mail size={15} />
+                <span className="channel-label">EMAIL</span>
+              </div>
             </button>
 
             <button
@@ -510,10 +606,14 @@ export default function DetectorTab() {
               className={`channel-btn ${channel === 'URL' ? 'active' : ''}`}
               onClick={() => { setChannel('URL'); setError(''); }}
             >
-              <span className="channel-led" />
-              <Link2 size={16} />
-              <span>URL</span>
-              <span className="channel-badge">PORT_03</span>
+              <div className="channel-btn-top">
+                <span className="channel-led" />
+                <span className="channel-badge">PORT_03</span>
+              </div>
+              <div className="channel-btn-content">
+                <Link2 size={15} />
+                <span className="channel-label">URL</span>
+              </div>
             </button>
 
             <button
@@ -521,10 +621,14 @@ export default function DetectorTab() {
               className={`channel-btn ${channel === 'Attachment' ? 'active' : ''}`}
               onClick={() => { setChannel('Attachment'); setError(''); }}
             >
-              <span className="channel-led" />
-              <Paperclip size={16} />
-              <span>ATTACHMENT</span>
-              <span className="channel-badge">PORT_04</span>
+              <div className="channel-btn-top">
+                <span className="channel-led" />
+                <span className="channel-badge">PORT_04</span>
+              </div>
+              <div className="channel-btn-content">
+                <Paperclip size={15} />
+                <span className="channel-label">ATTACHMENT</span>
+              </div>
             </button>
           </div>
 
@@ -1001,6 +1105,9 @@ export default function DetectorTab() {
 
                 {/* Web Intelligence Panel — URL Scan */}
                 <WebIntelPanel webIntel={r.web_intel} />
+
+                {/* VirusTotal Global Threat Intelligence Panel */}
+                <VirusTotalPanel vtData={r.virustotal} type="url" />
               </div>
             );
           })()}
@@ -1161,6 +1268,9 @@ export default function DetectorTab() {
                     </div>
                   </div>
                 )}
+
+                {/* VirusTotal File Hash Intelligence Panel */}
+                <VirusTotalPanel vtData={r.virustotal} type="file" />
 
                 {r.summary && (
                   <div style={{ marginTop: '0.5rem', fontSize: '0.83rem', lineHeight: '1.55', color: 'var(--text-secondary)', fontStyle: 'italic', borderTop: '1px solid var(--border-dim)', paddingTop: '0.6rem' }}>
@@ -1595,6 +1705,9 @@ export default function DetectorTab() {
 
               {/* Web Intelligence Panel — SMS/Email Scan */}
               <WebIntelPanel webIntel={result.web_intel} />
+
+              {/* VirusTotal Threat Sensor Panel */}
+              <VirusTotalPanel vtData={result.virustotal || result.web_intel?.virustotal} type="url" />
             </div>
           )}
         </div>

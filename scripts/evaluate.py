@@ -15,7 +15,7 @@ import yaml
 import numpy as np
 import pandas as pd
 from scipy.sparse import hstack
-from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
 from sklearn.preprocessing import LabelEncoder
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -89,11 +89,13 @@ def compute_summary(y_true, y_pred, classes_list, model_name):
     fp = ((~genuine_pred) & genuine_actual).sum()
     tn = (genuine_pred & genuine_actual).sum()
     fpr = fp / (fp + tn) if (fp + tn) > 0 else 0.0
+    accuracy = accuracy_score(y_true, y_pred)
     return {
         "model": model_name,
         "precision": round(report.get("macro avg", {}).get("precision", 0.0), 4),
         "recall": round(report.get("macro avg", {}).get("recall", 0.0), 4),
         "f1": round(report.get("macro avg", {}).get("f1-score", 0.0), 4),
+        "accuracy": round(accuracy, 4),
         "fpr_on_genuine": round(fpr, 4)
     }
 

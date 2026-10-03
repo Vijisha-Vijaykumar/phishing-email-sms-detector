@@ -137,8 +137,8 @@ body {
     linear-gradient(90deg, rgba(0, 240, 255, 0.07) 1px, transparent 1px);
   background-size: 40px 40px;
   background-position: center center;
-  mask-image: radial-gradient(ellipse 85% 70% at 50% 30%, black 40%, transparent 80%);
   -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 30%, black 40%, transparent 80%);
+  mask-image: radial-gradient(ellipse 85% 70% at 50% 30%, black 40%, transparent 80%);
 }
 
 /* ── Animated Cyber Laser Scanner Bar ───────────────── */
@@ -231,6 +231,7 @@ body {
   opacity: 0.35;
   pointer-events: none;
   z-index: 5;
+  -webkit-user-select: none;
   user-select: none;
 }
 .corner-tl { top: 12px; left: 16px; }
@@ -679,16 +680,29 @@ body {
    CHANNEL SELECTOR
    ══════════════════════════════════════════════════════ */
 .channel-selector {
-  display: flex;
-  gap: 0.65rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.55rem;
   margin-bottom: 1.35rem;
-  flex-wrap: wrap;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .channel-selector {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .channel-btn {
-  flex: 1 1 calc(25% - 0.65rem);
-  min-width: 110px;
-  padding: 0.75rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 0.35rem;
+  padding: 0.55rem 0.4rem;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
   background: var(--bg-input);
   border: 1px solid var(--border-dim);
   border-radius: var(--r-md);
@@ -696,14 +710,39 @@ body {
   font-weight: 700;
   font-family: var(--font-display);
   cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: all 0.22s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.channel-btn-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-width: 0;
+}
+
+.channel-btn-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  font-size: 0.78rem;
-  letter-spacing: 0.05em;
-  transition: all 0.22s ease;
-  position: relative;
+  gap: 0.3rem;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.channel-btn .channel-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  flex-shrink: 1;
 }
 
 .file-dropzone {
@@ -732,11 +771,16 @@ body {
 
 .channel-badge {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.58rem;
   color: var(--text-muted);
   background: rgba(255, 255, 255, 0.05);
-  padding: 0.1rem 0.35rem;
+  padding: 0.08rem 0.25rem;
   border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 52px;
+  flex-shrink: 1;
 }
 
 .channel-btn:hover {
@@ -1092,6 +1136,9 @@ body {
   font-size: 0.84rem;
   color: #fed7aa;
   font-family: var(--font-body);
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .evidence-icon {
@@ -1141,8 +1188,28 @@ body {
 .extracted-row {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.8rem;
   padding: 0.45rem 0;
   border-bottom: 1px solid rgba(0, 240, 255, 0.08);
+  min-width: 0;
+}
+
+.extracted-key {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  flex: 0 0 auto;
+}
+
+.extracted-val {
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  min-width: 0;
+  max-width: 70%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  text-align: right;
 }
 
 .extracted-row:last-child {

@@ -16,6 +16,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.routes.predict import router
 from app.routes.samples import router as samples_router
 from app.routes.attachment import router as attachment_router
+from app.routes.virustotal import router as virustotal_router
 
 app = FastAPI(
     title="PhishGuard AI",
@@ -31,7 +32,7 @@ app = FastAPI(
 # Allow local React dev server
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173", "https://phishing-email-sms-detector-1.onrender.com"],
+    allow_origins=["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173", "https://phishing-email-sms-detector-1.onrender.com", "https://phishing-email-sms-detector.onrender.com"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -41,6 +42,7 @@ app.include_router(router)
 app.include_router(samples_router)
 app.include_router(attachment_router)
 app.include_router(attachment_router, prefix="/api/attachment")
+app.include_router(virustotal_router)
 
 
 @app.get("/", tags=["Root"])
